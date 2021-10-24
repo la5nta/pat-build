@@ -19,7 +19,8 @@ git clone --branch releases/vX.Y.Z https://github.com/la5nta/pat ../pat
 # Build and prepare macOS package
 # Remember to ensure you're using the latest (stable) version of Go.
 # This requires a valid Apple Developer Signing Certificate, xcode and WhiteBox' Packages.
-SIGNING_KEY=G7CVWF7MFX ./02-make-macos
+# SIGNING_KEY=G7CVWF7MFX ./02-make-macos
+./02-make-macos
 
 # Upload files to Github
 ls dists/
