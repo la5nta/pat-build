@@ -1,0 +1,19 @@
+FROM golang AS build-stage
+WORKDIR /src
+
+ENV SKIP_TESTS=1
+
+ADD . .
+
+# Windows
+RUN mkdir -p /artifacts/windows_386 && \
+    GOOS=windows GOARCH=386 ./make.bash && \
+    mv pat /artifacts/windows_386/
+
+# Darwin (cross compilation is currently not working)
+#RUN mkdir -p /artifacts/darwin_amd64 && \
+#    GOOS=darwin GOARCH=amd64 ./make.bash && \
+#    mv pat /artifacts/darwin_amd64/
+
+FROM scratch AS export-stage
+COPY --from=build-stage /artifacts /

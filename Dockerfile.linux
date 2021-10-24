@@ -1,0 +1,14 @@
+FROM golang AS build-stage
+WORKDIR /src
+
+RUN apt-get update && apt-get install -y dpkg-dev debhelper
+
+ADD . .
+RUN ./make.bash libax25
+RUN dpkg-buildpackage -d -us -uc -B
+RUN mkdir /artifacts && \
+    mv ../pat_*.deb /artifacts/ && \
+    mv debian/pat/usr/bin/pat /artifacts/pat
+
+FROM scratch AS export-stage
+COPY --from=build-stage /artifacts /
