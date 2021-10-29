@@ -1,12 +1,12 @@
 FROM raspbian/stretch AS build-stage
 WORKDIR /src
 
+RUN apt-get -qq update && apt-get -qq install -y dpkg-dev debhelper git build-essential curl
+
 ARG GOVERSION
 RUN wget -qO- "https://golang.org/dl/go$GOVERSION.linux-armv6l.tar.gz" | tar zxvf - -C /usr/local
 ENV PATH="/usr/local/go/bin:${PATH}"
 RUN go version
-
-RUN apt-get -qq update && apt-get -qq install -y dpkg-dev debhelper git build-essential curl
 
 ADD . .
 RUN ./make.bash libax25
