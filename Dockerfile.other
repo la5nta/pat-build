@@ -1,4 +1,5 @@
-FROM golang AS build-stage
+ARG GOVERSION
+FROM golang:$GOVERSION AS build-stage
 WORKDIR /src
 
 ENV SKIP_TESTS=1

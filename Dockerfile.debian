@@ -1,4 +1,6 @@
-FROM golang AS build-stage
+ARG GOVERSION
+
+FROM golang:$GOVERSION AS build-stage
 WORKDIR /src
 
 RUN apt-get update && apt-get install -y dpkg-dev debhelper

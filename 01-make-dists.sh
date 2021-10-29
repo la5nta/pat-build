@@ -32,12 +32,12 @@ build_zip artifacts-other/windows_386/pat pat_${VERSION}_windows_i386
 #cp artifacts-other/darwin_amd64/pat_${VERSION}_darwin_amd64.pkg dists/
 
 # linux/386
-build_tarball artifacts-linux/linux_386/pat pat_${VERSION}_linux_i386 
-cp artifacts-linux/linux_386/pat_${VERSION}_i386.deb dists/pat_${VERSION}_linux_i386.deb
+build_tarball artifacts-debian/linux_386/pat pat_${VERSION}_linux_i386
+cp artifacts-debian/linux_386/pat_${VERSION}_i386.deb dists/pat_${VERSION}_linux_i386.deb
 
 # linux/amd64
-build_tarball artifacts-linux/linux_amd64/pat pat_${VERSION}_linux_amd64
-cp artifacts-linux/linux_amd64/pat_${VERSION}_amd64.deb dists/pat_${VERSION}_linux_amd64.deb
+build_tarball artifacts-debian/linux_amd64/pat pat_${VERSION}_linux_amd64
+cp artifacts-debian/linux_amd64/pat_${VERSION}_amd64.deb dists/pat_${VERSION}_linux_amd64.deb
 
-# linux/armv7
-cp artifacts-linux/linux_arm_v7/pat_${VERSION}_armhf.deb dists/pat_${VERSION}_linux_armhf.deb
+# linux/armv6
+cp artifacts-raspbian/pat_${VERSION}_armhf.deb dists/pat_${VERSION}_linux_armhf.deb

@@ -1,0 +1,19 @@
+FROM raspbian/stretch AS build-stage
+WORKDIR /src
+
+ARG GOVERSION
+RUN wget -qO- "https://golang.org/dl/go$GOVERSION.linux-armv6l.tar.gz" | tar zxvf - -C /usr/local
+ENV PATH="/usr/local/go/bin:${PATH}"
+RUN go version
+
+RUN apt-get -qq update && apt-get -qq install -y dpkg-dev debhelper git build-essential curl
+
+ADD . .
+RUN ./make.bash libax25
+RUN dpkg-buildpackage -d -us -uc -B
+RUN mkdir /artifacts && \
+    mv ../pat_*.deb /artifacts/ && \
+    mv debian/pat/usr/bin/pat /artifacts/pat
+
+FROM scratch AS export-stage
+COPY --from=build-stage /artifacts /

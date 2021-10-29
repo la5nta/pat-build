@@ -11,7 +11,7 @@ docker buildx use multi-arch
 git clone --branch releases/vX.Y.Z https://github.com/la5nta/pat ../pat
 
 # Build Linux and Windows artifacts
-./00-make-docker-multi.sh
+GOVERSION=1.17.3 ./00-make-docker-multi.sh
 
 # Prepare distributions
 ./01-make-dists

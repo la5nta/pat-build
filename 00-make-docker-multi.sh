@@ -9,5 +9,9 @@ set -e
 
 PAT_ROOT="../pat"
 
-docker buildx build -f Dockerfile.other --platform linux/amd64 -o artifacts-other ${PAT_ROOT}/
-docker buildx build -f Dockerfile.linux --platform linux/amd64,linux/386,linux/arm/v7 -o artifacts-linux ${PAT_ROOT}/
+[ -d $GOVERSION ] && echo "GOVERSION not defined" && exit 1;
+
+rm -rf artifacts-*/
+docker buildx build --progress plain --build-arg GOVERSION=$GOVERSION -f Dockerfile.raspbian --platform linux/arm/v6 -o artifacts-raspbian ${PAT_ROOT}/
+docker buildx build --progress plain --build-arg GOVERSION=$GOVERSION -f Dockerfile.other --platform linux/amd64 -o artifacts-other ${PAT_ROOT}/
+docker buildx build --progress plain --build-arg GOVERSION=$GOVERSION -f Dockerfile.debian --platform linux/amd64,linux/386 -o artifacts-debian ${PAT_ROOT}/
