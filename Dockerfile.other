@@ -9,7 +9,7 @@ ADD . .
 # Windows
 RUN mkdir -p /artifacts/windows_386 && \
     GOOS=windows GOARCH=386 ./make.bash && \
-    mv pat /artifacts/windows_386/
+    mv pat.exe /artifacts/windows_386/
 
 # Darwin (cross compilation is currently not working)
 #RUN mkdir -p /artifacts/darwin_amd64 && \

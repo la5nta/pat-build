@@ -26,7 +26,7 @@ function build_zip {
 rm -rf dists
 
 # windows/386
-build_zip artifacts-other/windows_386/pat pat_${VERSION}_windows_i386
+build_zip artifacts-other/windows_386/pat.exe pat_${VERSION}_windows_i386
 
 # darwin/amd64
 #cp artifacts-other/darwin_amd64/pat_${VERSION}_darwin_amd64.pkg dists/
