@@ -14,4 +14,4 @@ PAT_ROOT="../pat"
 rm -rf artifacts-*/
 docker buildx build --build-arg GOVERSION=$GOVERSION -f Dockerfile.raspbian --platform linux/arm/v6 -o artifacts-raspbian ${PAT_ROOT}/
 docker buildx build --build-arg GOVERSION=$GOVERSION -f Dockerfile.other --platform linux/amd64 -o artifacts-other ${PAT_ROOT}/
-docker buildx build --build-arg GOVERSION=$GOVERSION -f Dockerfile.debian --platform linux/amd64,linux/386 -o artifacts-debian ${PAT_ROOT}/
+docker buildx build --build-arg GOVERSION=$GOVERSION -f Dockerfile.debian --platform linux/amd64,linux/386,linux/arm64 -o artifacts-debian ${PAT_ROOT}/
