@@ -41,3 +41,6 @@ cp artifacts-debian/linux_amd64/pat_${VERSION}_amd64.deb dists/pat_${VERSION}_li
 
 # linux/armv6
 cp artifacts-raspbian/pat_${VERSION}_armhf.deb dists/pat_${VERSION}_linux_armhf.deb
+
+# linux/arm64
+cp artifacts-debian/pat_${VERSION}_arm64.deb dists/pat_${VERSION}_linux_arm64.deb
