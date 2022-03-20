@@ -1,10 +1,13 @@
-#bin/sh
+#!/bin/sh
 set -e
 PAT_ROOT="../pat"
 VERSION=$(grep "Version =" ${PAT_ROOT}/internal/buildinfo/VERSION.go|cut -d '"' -f2)
 
-if [[ $(go env GOOS) != "darwin" ]]; then
-	echo "This step must be run on macOS with packages and xcode installed."
+if [ $(go env GOOS) != "darwin" ]; then
+	echo "This step must be run on macOS" && exit 1
+fi
+if [ ! $(command -v packagesbuild >/dev/null 2>&1) ]; then
+	echo "WhiteBox Packages must be installed" && exit 1
 fi
 (cd ${PAT_ROOT}; ./make.bash;)
 
