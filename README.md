@@ -4,7 +4,7 @@ Scripts for building Pat releases.
 
 ```
 # Create a new multi-arch Docker builder and set it as the default builder.
-docker buildx create --name multi-arch
+docker buildx create --platform linux/amd64,linux/arm64,linux/386,linux/arm/v6 --name multi-arch
 docker buildx use multi-arch
 
 # Clone Pat into ../pat
