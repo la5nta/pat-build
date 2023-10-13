@@ -1,6 +1,9 @@
 FROM raspbian/stretch AS build-stage
 WORKDIR /src
 
+# https://forums.raspberrypi.com/viewtopic.php?t=237469&sid=165e2cbc23230fb8c7b810cb5c46de48
+RUN echo 'deb http://legacy.raspbian.org/raspbian/ stretch main' > /etc/apt/sources.list
+
 RUN apt-get -qq update && apt-get -qq install -y dpkg-dev debhelper git build-essential curl
 
 ARG GOVERSION
