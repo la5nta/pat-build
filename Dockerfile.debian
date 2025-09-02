@@ -1,12 +1,19 @@
-ARG GOVERSION
-
 # Use Debian Bullseye to compile against the oldest glibc practically possible.
 # Debian Bookworm ships with v2.36, producing binaries not backwards compatible
 # with Bullseye (glibc v2.31).
-FROM golang:$GOVERSION-bullseye AS build-stage
+FROM debian:bullseye AS build-stage
+
+ARG GOVERSION
+ARG TARGETPLATFORM
+
 WORKDIR /src
 
-RUN apt-get update && apt-get install -y dpkg-dev debhelper
+RUN apt-get update && apt-get install -y dpkg-dev debhelper git build-essential curl wget
+RUN PLATFORM="$(echo $TARGETPLATFORM | sed 's|/|-|')" && \
+    echo "Downloading Go from: https://go.dev/dl/go$GOVERSION.$PLATFORM.tar.gz" && \
+    wget -qO- -L "https://go.dev/dl/go$GOVERSION.$PLATFORM.tar.gz" | tar zxf - -C /usr/local
+ENV PATH="/usr/local/go/bin:${PATH}"
+RUN go version
 
 ADD . .
 RUN ./make.bash libax25
