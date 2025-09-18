@@ -7,7 +7,9 @@ set -e
 # macOS builds are currently not supported due to cross compilation issues
 # in github.com/albenik/go-serial/v2.
 
-PAT_ROOT="../pat"
+REPO=../pat
+PAT_ROOT="src"
+rm -rf ${PAT_ROOT} && git clone "${REPO}" "${PAT_ROOT}"
 
 [ -d $GOVERSION ] && echo "GOVERSION not defined" && exit 1;
 

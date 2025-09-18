@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-PAT_ROOT="../pat"
+PAT_ROOT="src"
 VERSION=$(grep "Version =" ${PAT_ROOT}/internal/buildinfo/VERSION.go|cut -d '"' -f2)
 
 function build_tarball {
