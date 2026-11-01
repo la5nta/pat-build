@@ -8,7 +8,15 @@ ARG TARGETPLATFORM
 
 WORKDIR /src
 
-RUN apt-get update && apt-get install -y dpkg-dev debhelper git build-essential curl wget
+# Debian 11 (Bullseye) LTS reached EOL on 2026-08-31, so its packages and
+# security updates were removed from deb.debian.org and moved to the archive.
+# Point apt at archive.debian.org and disable the Valid-Until check, which
+# would otherwise reject the now-frozen release files.
+RUN rm -f /etc/apt/sources.list.d/* && \
+    printf 'deb http://archive.debian.org/debian bullseye main\n' > /etc/apt/sources.list && \
+    printf 'deb http://archive.debian.org/debian-security bullseye-security main\n' >> /etc/apt/sources.list && \
+    apt-get update -o Acquire::Check-Valid-Until=false && \
+    apt-get install -y dpkg-dev debhelper git build-essential curl wget
 RUN PLATFORM="$(echo $TARGETPLATFORM | sed 's|/|-|')" && \
     echo "Downloading Go from: https://go.dev/dl/go$GOVERSION.$PLATFORM.tar.gz" && \
     wget -qO- -L "https://go.dev/dl/go$GOVERSION.$PLATFORM.tar.gz" | tar zxf - -C /usr/local
